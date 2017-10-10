@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Component renders properly 1`] = `
+<div
+  className="Footer"
+>
+  <p
+    className="Footer__text"
+  >
+    Developed by Rodrigo Dugin
+  </p>
+</div>
+`;
