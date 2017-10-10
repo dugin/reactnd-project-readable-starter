@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortBy Component renders properly 1`] = `
+<ButtonDropdown
+  className="SortBy"
+  isOpen={false}
+  toggle={[Function]}
+>
+  <DropdownToggle
+    aria-haspopup={true}
+    caret={true}
+    color="secondary"
+  >
+    vote score
+  </DropdownToggle>
+  <DropdownMenu
+    flip={true}
+    tag="div"
+  >
+    <DropdownItem
+      key="vote score"
+      onClick={[Function]}
+      tag="button"
+      toggle={true}
+    >
+       
+      vote score
+    </DropdownItem>
+    <DropdownItem
+      key="created at"
+      onClick={[Function]}
+      tag="button"
+      toggle={true}
+    >
+       
+      created at
+    </DropdownItem>
+  </DropdownMenu>
+</ButtonDropdown>
+`;

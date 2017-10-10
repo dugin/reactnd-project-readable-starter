@@ -1,0 +1,12 @@
+.ReadablePage {
+
+  &__add {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+
+    &--btn{
+      padding: 20px;
+    }
+  }
+}

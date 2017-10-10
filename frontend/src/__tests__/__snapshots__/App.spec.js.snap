@@ -7,7 +7,35 @@ exports[`App Component renders properly 1`] = `
   <Header />
   <main
     className="App__main container"
-  />
+  >
+    <Switch>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/create"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/edit"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/post/:id"
+      />
+      <Redirect
+        component={[Function]}
+        path="**"
+        push={false}
+      />
+    </Switch>
+  </main>
   <Footer />
 </div>
 `;

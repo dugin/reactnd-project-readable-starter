@@ -1,12 +1,36 @@
-$gray-100: #f8f9fa;
-$gray-800: #343a40;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+
+
+$yellow : #fff059;
+$blue: #3483fa;
+$green: #39b54a;
+
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px
+) !default;
+
 
 $theme-colors: (
-        primary: #fff059,
-        secondary: #3483fa,
-        success: #39b54a,
-        warning: yellow,
+        primary: $yellow,
+        secondary: $blue,
+        success: $green,
+        warning: $yellow,
         danger: red,
         light: $gray-100,
         dark: $gray-800
 );
+
+$background-color: #fafafa;
+$line-color: #e8e8e8;

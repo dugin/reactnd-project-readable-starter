@@ -1,13 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header Component renders properly 1`] = `
-<div
-  className="App"
+<nav
+  className="navbar p-0 sticky-top navbar-light bg-primary Header"
 >
-  <Header />
-  <main
-    className="App__main container"
-  />
-  <Footer />
-</div>
+  <div
+    className="container"
+  >
+    <span
+      className="h1 navbar-brand "
+    >
+      My Readable
+    </span>
+  </div>
+</nav>
 `;

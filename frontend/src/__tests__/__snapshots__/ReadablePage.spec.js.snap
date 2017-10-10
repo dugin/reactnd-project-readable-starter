@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReadablePage  Component renders properly 1`] = `
+<div
+  className="ReadablePage"
+>
+  <Categories />
+  <SortBy />
+  <div
+    className="ReadablePage__add"
+  >
+    <Link
+      className="btn ReadablePage__add--btn rounded-circle btn-success"
+      replace={false}
+      to="/create"
+    >
+      <IoPlusRound
+        size={25}
+      />
+    </Link>
+  </div>
+</div>
+`;

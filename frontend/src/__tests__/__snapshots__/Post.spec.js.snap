@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Post Component renders properly 1`] = `
+<div
+  className="Post"
+>
+  <div
+    className="Post__main"
+  >
+    <div
+      className="Post__main__score"
+    >
+      <IoTrophy
+        size={25}
+      />
+      6
+    </div>
+    <div
+      className="Post__main__info"
+    >
+      <Link
+        className="Post__main__info__title"
+        replace={false}
+        to="post/8xf0y6ziyjabvozdd253nd"
+      >
+          
+        Udacity is the best place to learn React
+      </Link>
+      <h3
+        className="Post__main__info__body"
+      >
+         
+        Everyone says so after all.
+      </h3>
+    </div>
+  </div>
+  <div
+    className="Post__more"
+  >
+    <div>
+      <IoIosComposeOutline
+        size={25}
+      />
+      Jun, 28 - 11:21 pm
+    </div>
+    <div>
+      <IoIosPersonOutline
+        size={25}
+      />
+      thingtwo
+    </div>
+    <div
+      className="badge badge-pill badge-secondary"
+    >
+      react
+    </div>
+  </div>
+</div>
+`;

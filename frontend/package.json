@@ -13,14 +13,16 @@
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-icons": "^2.2.7",
     "react-loading": "^0.1.4",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
-    "reactstrap": "^4.8.0",
+    "reactstrap": "^5.0.0-alpha.3",
     "redux": "^3.7.2"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.9.0",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-16": "^1.0.1",
     "enzyme-to-json": "^3.1.2",
@@ -41,7 +43,7 @@
     "build": "npm run build-css && react-scripts build",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "test": "react-scripts test --env=jsdom --verbose" ,
+    "test": "react-scripts test --env=jsdom --verbose",
     "test:CI": "CI=true npm run test",
     "test:coverage": "npm run test -- --coverage",
     "eject": "react-scripts eject"
