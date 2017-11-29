@@ -1,0 +1,43 @@
+@import '../../variables';
+
+.Loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  &--text {
+    margin-top: -5px;
+    color: $blue;
+    font-weight: 700;
+  }
+}
+
+.CreateEditPage {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+
+  &__submit {
+
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+
+  }
+
+  .SortBy {
+    width: 100%;
+
+    .dropdown-menu, .dropdown-toggle {
+      width: 100%;
+    }
+  }
+
+  .required-field {
+    color: #ff0000;
+  }
+
+}

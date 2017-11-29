@@ -2,7 +2,7 @@
 
 exports[`Footer Component renders properly 1`] = `
 <div
-  className="Footer"
+  className="Footer mt-4"
 >
   <p
     className="Footer__text"

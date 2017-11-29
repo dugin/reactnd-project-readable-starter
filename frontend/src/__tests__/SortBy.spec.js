@@ -5,7 +5,9 @@ import SortBy from "../components/sort-by/SortBy";
 
 describe('SortBy Component', () => {
 
-    const sortBy = shallow(<SortBy/>);
+    const options = ['react', 'redux', 'angular'];
+
+    const sortBy = shallow(<SortBy selected={jest.fn()} options={options}/>);
 
     it('renders properly', () => {
 

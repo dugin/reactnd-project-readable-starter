@@ -1,19 +1,37 @@
+@import '../../variables';
+
+.loading {
+  text-align: center;
+  padding-top: 15px;
+  color: $blue;
+  font-size: 14px;
+}
+
 .Categories {
   display: flex;
   justify-content: space-between;
-  overflow-x: scroll;
-  overflow-y: hidden;
- // padding: 0 15px;
+
   width: 100%;
- // position: absolute;
-  left: 0;
-  right: 0;
-  top: 55px;
 
   .badge {
+    color: #fff !important;
     padding: 10px;
     margin: 10px 5px 10px 0;
     font-size: 14px;
     min-width: 70px;
+  }
+
+  .dropdown-toggle {
+    background-color: #fff;
+    border: 1px solid $gray-400;
+    color: $gray-700;
+    min-width: 105px;
+
+    &:focus, &:hover {
+      background-color: #fff;
+      border: 1px solid $gray-400;
+      box-shadow: none;
+    }
+
   }
 }

@@ -1,3 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CreateEditPage Component renders properly 1`] = `<div />`;
+exports[`CreateEditPage Component renders properly 1`] = `
+<form
+  className="CreateEditPage mt-3 row"
+  onSubmit={[Function]}
+>
+  <div
+    className="form-group col-12 "
+  >
+    <input
+      className="form-control"
+      name="title"
+      placeholder="Title"
+      required={true}
+      type="text"
+    />
+  </div>
+  <div
+    className="form-group col-12 "
+  >
+    <textarea
+      className="form-control"
+      name="body"
+      required={true}
+      rows="6"
+    />
+  </div>
+  <div
+    className="row mx-0"
+  >
+    <div
+      className="form-group col-7"
+    >
+      <input
+        className="form-control"
+        name="author"
+        placeholder="Author"
+        required={true}
+        type="text"
+      />
+    </div>
+    <div
+      className="form-group col-5 pl-0"
+    >
+      <Categories
+        onEdit={true}
+        selected={[Function]}
+      />
+    </div>
+  </div>
+  <div
+    className="col-12 CreateEditPage__submit"
+  >
+    <p
+      className="required-field"
+    >
+      * All fields are required
+    </p>
+    <button
+      className="btn btn-success btn-block"
+      disabled={true}
+      type="submit"
+    >
+      Submit
+    </button>
+  </div>
+</form>
+`;

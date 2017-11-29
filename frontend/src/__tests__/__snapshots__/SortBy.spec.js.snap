@@ -11,29 +11,38 @@ exports[`SortBy Component renders properly 1`] = `
     caret={true}
     color="secondary"
   >
-    vote score
+    react
   </DropdownToggle>
   <DropdownMenu
     flip={true}
     tag="div"
   >
     <DropdownItem
-      key="vote score"
+      key="react"
       onClick={[Function]}
       tag="button"
       toggle={true}
     >
        
-      vote score
+      react
     </DropdownItem>
     <DropdownItem
-      key="created at"
+      key="redux"
       onClick={[Function]}
       tag="button"
       toggle={true}
     >
        
-      created at
+      redux
+    </DropdownItem>
+    <DropdownItem
+      key="angular"
+      onClick={[Function]}
+      tag="button"
+      toggle={true}
+    >
+       
+      angular
     </DropdownItem>
   </DropdownMenu>
 </ButtonDropdown>

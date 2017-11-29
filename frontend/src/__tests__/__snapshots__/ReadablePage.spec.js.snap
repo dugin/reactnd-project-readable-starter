@@ -5,7 +5,15 @@ exports[`ReadablePage  Component renders properly 1`] = `
   className="ReadablePage"
 >
   <Categories />
-  <SortBy />
+  <SortBy
+    options={
+      Array [
+        "vote score",
+        "created at",
+      ]
+    }
+    selected={[Function]}
+  />
   <div
     className="ReadablePage__add"
   >

@@ -1,12 +1,33 @@
+@import "../../variables";
+
 .ReadablePage {
 
+  .SortBy {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    border-bottom: 1px solid $line-color;
+
+    .dropdown-toggle {
+      background-color: transparent;
+      border: none;
+      color: $gray-700;
+
+      &:focus, &:hover {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+
   &__add {
-    position: absolute;
-    bottom: 10px;
+    position: fixed;
+    bottom: 20px;
     right: 20px;
 
-    &--btn{
-      padding: 20px;
+    &--btn {
+      padding: 15px;
     }
   }
 }

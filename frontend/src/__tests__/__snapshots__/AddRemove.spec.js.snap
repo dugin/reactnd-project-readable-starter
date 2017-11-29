@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddRemove Component renders properly 1`] = `
+<div
+  className="AddRemove"
+>
+  <a
+    className="AddRemove__remove--btn"
+    onClick={[Function]}
+  >
+    <IoIosMinus
+      color="#39b54a"
+      size={25}
+    />
+  </a>
+  <a
+    className="AddRemove__add--btn"
+    onClick={[Function]}
+  >
+    <IoIosPlus
+      color="#39b54a"
+      size={25}
+    />
+  </a>
+</div>
+`;

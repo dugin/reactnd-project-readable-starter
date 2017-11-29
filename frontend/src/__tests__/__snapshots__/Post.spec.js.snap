@@ -32,16 +32,24 @@ exports[`Post Component renders properly 1`] = `
          
         Everyone says so after all.
       </h3>
+      <p
+        className="Post__main__info__createdAt"
+      >
+        <IoIosComposeOutline
+          size={20}
+        />
+        Jun, 28 - 11:21 pm
+      </p>
     </div>
   </div>
   <div
     className="Post__more"
   >
     <div>
-      <IoIosComposeOutline
-        size={25}
+      <AddRemove
+        amount={6}
+        onAddOrRemove={[Function]}
       />
-      Jun, 28 - 11:21 pm
     </div>
     <div>
       <IoIosPersonOutline

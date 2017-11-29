@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.AddRemove {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+
+  a {
+    color: map-get($theme-colors, success);
+  }
+
+  &__remove--btn {
+    margin-right: 10px;
+  }
+
+}

@@ -4,7 +4,7 @@ exports[`App Component renders properly 1`] = `
 <div
   className="App"
 >
-  <Header />
+  <withRouter(Header) />
   <main
     className="App__main container"
   >
@@ -33,6 +33,7 @@ exports[`App Component renders properly 1`] = `
         component={[Function]}
         path="**"
         push={false}
+        to="/"
       />
     </Switch>
   </main>

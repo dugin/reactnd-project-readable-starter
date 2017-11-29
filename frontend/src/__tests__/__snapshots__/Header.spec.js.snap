@@ -5,13 +5,28 @@ exports[`Header Component renders properly 1`] = `
   className="navbar p-0 sticky-top navbar-light bg-primary Header"
 >
   <div
-    className="container"
+    className="Header__wrapper"
   >
-    <span
-      className="h1 navbar-brand "
+    <a
+      className="Header__back-btn"
+      onClick={[Function]}
     >
-      My Readable
-    </span>
+       
+      <IoIosArrowBack
+        size={30}
+      />
+    </a>
+    <div
+      className="container Header__brand"
+    >
+      <Link
+        className="h1 navbar-brand m-0 "
+        replace={false}
+        to="/"
+      >
+        My Readable
+      </Link>
+    </div>
   </div>
 </nav>
 `;
