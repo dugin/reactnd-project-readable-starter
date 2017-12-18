@@ -10,7 +10,7 @@ class Comment extends Component {
 
         return (
             <div className="Comment">
-                <Post post={this.props.post}/>
+                <Post post={this.props.comment}/>
             </div>
         )
     }

@@ -8,11 +8,13 @@ import CreateEditPage from "./components/create-edit-page/CreateEdit.page";
 import DetailPage from "./components/detail-page/Detail.page";
 import {connect} from "react-redux";
 import {fetchPosts} from "./actions/posts";
+import {fetchCategories} from "./actions/categories";
 
 class App extends Component {
 
     componentDidMount() {
         this.props.dispatch(fetchPosts());
+        this.props.dispatch(fetchCategories());
     }
 
     render() {

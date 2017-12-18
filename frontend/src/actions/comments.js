@@ -1,9 +1,10 @@
 import * as constants from './constants';
+import * as readableAPI from './../api/readableAPI';
 
-export const addComment = (comment) => {
+export const fetchComments = (postID) => {
     return {
-        type: constants.ADD_COMMENT,
-        comment
+        type: constants.FETCH_COMMENTS,
+        payload: readableAPI.getComments(postID)
     }
 };
 
@@ -17,7 +18,13 @@ export const removeComment = (id) => {
 export const editComment = (id, comment) => {
     return {
         type: constants.EDIT_COMMENT,
-        comment,
-        id
+        payload: readableAPI.editComment(id, comment)
+    }
+};
+
+export const sortComments = (sortBy) => {
+    return {
+        type: constants.SORT_COMMENTS,
+        sortBy
     }
 };

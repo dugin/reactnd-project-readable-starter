@@ -35,7 +35,7 @@ describe('CreateEditPage Component', () => {
         expect(createEditPage.instance().setPost).toHaveBeenCalled();
     });
 
-    it('on setPost', async () => {
+    it('on addPost', async () => {
 
         mock.onPost(URL + '/posts').reply(200);
 

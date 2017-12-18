@@ -5,13 +5,16 @@ import IosPersonOutline from 'react-icons/lib/io/ios-person-outline';
 import Trophy from 'react-icons/lib/io/trophy';
 import Edit from 'react-icons/lib/io/edit';
 import moment from 'moment';
-import {Link} from 'react-router-dom';
 import AddRemove from "../add-remove/AddRemove";
-import * as readableAPI from '../../api/readableAPI';
-import {connect} from 'react-redux';
-import {editPost} from "../../actions/posts";
+import {Link} from 'react-router-dom';
+
+import PropTypes from 'prop-types';
+import {ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle} from "reactstrap";
+import PostActions from "../post-actions/PostActions";
 
 class Post extends Component {
+
+
 
     constructor(props) {
         super(props);
@@ -22,13 +25,17 @@ class Post extends Component {
     };
 
     onChangeVoteScore = (voteType, quantity) => {
-        this.props.edit(this.props.post.id, {...this.props.post, voteScore: quantity});
+        this.props.onChangeVoteScore(this.props.post.id, {...this.props.post, voteScore: quantity});
     };
 
     render() {
         return (
             <div className="Post">
-                <Link to={'edit/' + this.props.post.id} className="Post__edit"><Edit size={20}/></Link>
+
+                <div className="Post__edit">
+                    <PostActions post={ this.props.post}/>
+                </div>
+
                 <div className="Post__main">
                     <div>
                         <div className="Post__main__score">
@@ -61,10 +68,9 @@ class Post extends Component {
     }
 }
 
-export const mapDispatchToProps = (dispatch) => {
-    return {
-        edit: (id, post) => dispatch(editPost(id, post)),
-    }
+Post.propTypes = {
+    post: PropTypes.object.isRequired,
+    onChangeVoteScore: PropTypes.func.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(Post);
+export default Post;

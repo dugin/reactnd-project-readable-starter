@@ -4,14 +4,14 @@ import * as readableAPI from "../api/readableAPI";
 export const fetchPosts = () => {
     return {
         type: constants.FETCH_POSTS,
-        payload: readableAPI.getAllPosts()
+        payload: readableAPI.getPosts()
     }
 };
 
 export const addPost = (post) => {
     return {
         type: constants.ADD_POST,
-        payload: readableAPI.setPost(post)
+        payload: readableAPI.addPost(post)
     }
 };
 

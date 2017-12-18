@@ -12,9 +12,6 @@ class Categories extends Component {
     state = {categories: [], style: null};
 
     componentDidMount() {
-        if (this.props.categories.length === 0)
-            this.props.dispatch(fetchCategories());
-
 
         this.setState({style: {overflowX: this.props.onEdit ? 'none' : 'auto'}});
     }

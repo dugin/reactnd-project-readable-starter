@@ -11,7 +11,7 @@ import {Loader} from "../loader/loader";
 
 export class CreateEditPage extends Component {
 
-    state = { category: 'category'};
+    state = {category: 'category'};
 
     disabledCover = {
         backgroundColor: '#d1d4d7',
@@ -26,7 +26,7 @@ export class CreateEditPage extends Component {
 
 
     onCategory = (category) => {
-        this.setState( {category});
+        this.setState({category});
     };
     onSubmit = (e) => {
         e.preventDefault();
@@ -48,15 +48,15 @@ export class CreateEditPage extends Component {
     setPost = (values) => {
         const editContent = {title: values.title, body: values.body};
 
-            CreateEditPage.postID ? this.props.dispatch(editPost(CreateEditPage.postID, editContent)) : this.props.dispatch(addPost(values));
-            this.props.history.goBack();
+        CreateEditPage.postID ? this.props.dispatch(editPost(CreateEditPage.postID, editContent)) : this.props.dispatch(addPost(values));
+        this.props.history.goBack();
 
     };
 
     render() {
-        const post = this.props.post;
+        const post = this.props.post || {title: '', body: '', author: '', category : 'category'};
 
-        if (this.props.isLoading !== false )
+        if (this.props.isLoading)
             return <Loader/>;
 
         return (
@@ -86,7 +86,7 @@ export class CreateEditPage extends Component {
                 <div className="col-12 CreateEditPage__submit">
                     <p className="required-field">* All fields are required</p>
 
-                    <button type="submit" disabled={post.category === 'category'} className="btn btn-success btn-block">
+                    <button type="submit" disabled={this.state.category === 'category'} className="btn btn-success btn-block">
                         Submit
                     </button>
                 </div>
@@ -99,8 +99,7 @@ export const mapStateToProps = (state, props) => {
 
     return {
         post: state.postReducer.posts.find(p => p.id === props.match.params.post_id),
-        isLoading: !state.postReducer.done,
-        isPosts: state.postReducer.posts.length > 0
+        isLoading: !state.postReducer.fetched,
     }
 };
 

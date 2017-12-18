@@ -5,7 +5,8 @@ const initialState = {
     done: false,
     error: null,
     comments: [],
-    sortBy: null
+    sortBy: null,
+    fetched: false
 };
 
 export const commentReducer = (state = initialState, action) => {
@@ -30,6 +31,7 @@ export const commentReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     ...constants.DONE_OBJ,
+                    fetched: true,
                     comments: action.payload.data
                 };
 
@@ -51,8 +53,15 @@ export const commentReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     ...constants.DONE_OBJ,
-                    comments: state.comments.map(c => action.payload.data.id === c.id ? action.payload.data.comment : c)
+                    comments: state.comments.map(c => action.payload.data.id === c.id ? action.payload.data : c)
                 };
+
+            case constants.SORT_POSTS:
+                return {
+                    ...state,
+                    sortBy: action.sortBy
+                };
+
 
             default:
                 return state;
