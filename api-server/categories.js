@@ -16,6 +16,26 @@ const defaultData = {
       {
         name: 'udacity',
         path: 'udacity'
+      },
+      {
+          name: 'angular',
+          path: 'angular'
+      },
+      {
+          name: 'node',
+          path: 'node'
+      },
+      {
+          name: 'vue',
+          path: 'vue'
+      },
+      {
+          name: 'parcel',
+          path: 'parcel'
+      },
+      {
+          name: 'webpack',
+          path: 'webpack'
       }
   ]
 }
