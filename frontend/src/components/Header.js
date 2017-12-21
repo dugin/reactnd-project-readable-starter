@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import styled from 'styled-components';
 import SelectMenu from "./SelectMenu";
+import {sortable} from "../utils/constants";
+import {connect} from "react-redux";
+import {sortPosts} from "../post/post.action";
 
 const StyledTypography = styled(Typography)`
    font-weight: 300;
@@ -14,19 +17,29 @@ const StyledToolbar = styled(Toolbar)`
    display: flex;
 `;
 
-const Header = props => {
+class Header extends PureComponent {
 
-    return (
-        <AppBar  position="static">
-            <StyledToolbar >
-                <StyledTypography type="title" color="inherit">
-                    My Readable
-                </StyledTypography>
+    onSort = (sortBy) => {
+        this.props.dispatch(sortPosts(sortBy));
+    };
 
-                <SelectMenu defaultValue='Sort By' options={['vote score', 'created at']}/>
-            </StyledToolbar>
-        </AppBar>
-    );
-};
+    render() {
+        return (
+            <AppBar position="static">
+                <StyledToolbar>
+                    <StyledTypography type="title" color="inherit">
+                        My Readable
+                    </StyledTypography>
 
-export default Header;
+                    <SelectMenu
+                        defaultValue='Sort By'
+                        options={sortable}
+                        onSelect={this.onSort}
+                    />
+                </StyledToolbar>
+            </AppBar>
+        );
+    };
+}
+
+export default connect()(Header);

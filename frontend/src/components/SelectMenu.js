@@ -24,6 +24,8 @@ class SelectMenu extends PureComponent {
 
     handleClose = selectedValue => {
         this.setState({open: false, selectedValue});
+
+        this.props.onSelect(selectedValue)
     };
 
     render() {
@@ -42,7 +44,7 @@ class SelectMenu extends PureComponent {
                 <Menu
                     anchorEl={this.state.anchorEl}
                     open={this.state.open}
-                    onClose={this.handleClose}
+                    onClose={() => this.setState({open: false})}
                 >
                     {
                         options.map(o => (<MenuItem key={o} onClick={() => this.handleClose(o)}>{o}</MenuItem>))
@@ -58,6 +60,7 @@ class SelectMenu extends PureComponent {
 SelectMenu.propTypes = {
     options: PropTypes.array.isRequired,
     defaultValue: PropTypes.string.isRequired,
+    onSelect: PropTypes.func.isRequired
 };
 
 export default SelectMenu;

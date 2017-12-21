@@ -38,3 +38,11 @@ export const fetchCategories = () => {
     return api.get('categories');
 };
 
+export const fetchPosts = () => {
+    return api.get('posts');
+};
+
+
+export const voteOnPost = (id, voteType) => {
+    return api.post(`posts/${id}`, {option: voteType});
+};

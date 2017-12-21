@@ -1,8 +1,8 @@
 import {FETCH_CATEGORIES} from "./category.type";
 
 export const initialState = {
-    isDone: false,
-    error: null,
+    isDoneCategory: false,
+    errorCategory: null,
     categories: []
 };
 
@@ -11,21 +11,21 @@ export const categoriesReducer = (state = initialState, action) => {
         case FETCH_CATEGORIES.PENDING:
             return {
                 ...state,
-                isDone: false,
-                error: null,
+                isDoneCategory: false,
+                errorCategory: null,
             };
         case FETCH_CATEGORIES.FULFILLED:
             return {
                 ...state,
                 categories: [...action.payload.data.categories.map(c => c.name), 'all'],
-                isDone: true,
-                error: null,
+                isDoneCategory: true,
+                errorCategory: null,
             };
         case FETCH_CATEGORIES.REJECTED:
             return {
                 ...state,
-                error: action.payload,
-                isDone: true
+                errorCategory: action.payload,
+                isDoneCategory: true
             };
 
 

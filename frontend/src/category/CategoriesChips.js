@@ -1,9 +1,10 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import Chip from 'material-ui/Chip';
 import styled from "styled-components";
+import {darken} from "polished/lib/index";
 import colors from "../styles/constants/colors";
-import {darken} from 'polished';
+import {StyledPrimaryChip} from '../styles/styles';
+
 
 const StyledDiv = styled.div`
     margin-top: 20px;
@@ -12,12 +13,7 @@ const StyledDiv = styled.div`
     flex-wrap: wrap;
 `;
 
-const StyledChip = styled(Chip)`
-   background-color: ${colors.primary};
-   color: white;
-       margin: 5px 3px ;
-
-   
+ const StyledChip = StyledPrimaryChip.extend`
    &:hover, :focus{
       background-color: ${darken( 0.2, colors.primary)};
    }
