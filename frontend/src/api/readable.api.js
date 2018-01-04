@@ -3,12 +3,12 @@ import axios from 'axios';
 const METHOD = {
     GET: 'GET',
     DELETE: 'DELETE',
-    PATCH: 'PATCH',
+    PUT: 'PUT',
     POST: 'POST',
 };
 
 export const api = {
-    root: 'http://localhost:3001/',
+    root: 'http://localhost:3001',
     call: async (url, method = METHOD.GET, data = {}) => {
         return await axios({
             method,
@@ -24,8 +24,8 @@ export const api = {
     delete: async (url) => {
         return await api.call(url, METHOD.DELETE);
     },
-    patch: async (url, data) => {
-        return await api.call(url, METHOD.PATCH, data);
+    put: async (url, data) => {
+        return await api.call(url, METHOD.PUT, data);
     },
     post: async (url, data) => {
         return await api.call(url, METHOD.POST, data);
@@ -33,16 +33,34 @@ export const api = {
 
 };
 
-
-export const fetchCategories = () => {
-    return api.get('categories');
+const fetchCategories = () => {
+    return api.get(`/categories/`);
 };
 
-export const fetchPosts = () => {
-    return api.get('posts');
+const fetchPosts = (category = '') => {
+    if (category.length > 0)
+        category = `/${category}`;
+
+    return api.get(`${category}/posts/`);
+};
+
+const fetchPost = (id) => {
+    return api.get(`/posts/${id}`);
+};
+
+const voteOnPost = (id, voteType) => {
+    return api.post(`/posts/${id}/`, {option: voteType});
+};
+
+const removePost = (id) => {
+    return api.delete(`/posts/${id}/`);
 };
 
 
-export const voteOnPost = (id, voteType) => {
-    return api.post(`posts/${id}`, {option: voteType});
-};
+export {
+    fetchCategories,
+    fetchPosts,
+    fetchPost,
+    voteOnPost,
+    removePost
+}

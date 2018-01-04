@@ -1,4 +1,4 @@
-import {FETCH_POSTS, FILTER_POSTS, SORT_POSTS, VOTE_ON_POST} from "./post.type";
+import {FETCH_POSTS, FILTER_POSTS, REMOVE_POST, SORT_POSTS, VOTE_ON_POST} from "./post.type";
 
 export const initialState = {
     isDone: false,
@@ -7,6 +7,7 @@ export const initialState = {
 };
 
 export const postsReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case FETCH_POSTS.PENDING:
             return {
@@ -28,7 +29,6 @@ export const postsReducer = (state = initialState, action) => {
                 isDone: true
             };
 
-
         case VOTE_ON_POST.PENDING:
             return {
                 ...state,
@@ -42,11 +42,33 @@ export const postsReducer = (state = initialState, action) => {
                 isDone: true,
                 error: null,
             };
+
         case VOTE_ON_POST.REJECTED:
             return {
                 ...state,
                 error: action.payload,
                 isDone: true
+            };
+
+        case REMOVE_POST.REJECTED:
+            return {
+                ...state,
+                error: action.payload,
+                isDone: true
+            };
+
+        case REMOVE_POST.PENDING:
+            return {
+                ...state,
+                isDone: false,
+                error: null,
+            };
+        case REMOVE_POST.FULFILLED:
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.payload.data.id),
+                isDone: true,
+                error: null,
             };
 
 

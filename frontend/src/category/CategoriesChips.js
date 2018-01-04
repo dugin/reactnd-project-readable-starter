@@ -22,7 +22,7 @@ const StyledDiv = styled.div`
 class CategoriesChips extends PureComponent {
 
     handleClick = category => {
-
+        this.props.onSelect(category);
     };
 
     render() {
@@ -46,6 +46,7 @@ class CategoriesChips extends PureComponent {
 
 CategoriesChips.propTypes = {
     categories: PropTypes.array.isRequired,
+    onSelect: PropTypes.func.isRequired
 };
 
 export default CategoriesChips;

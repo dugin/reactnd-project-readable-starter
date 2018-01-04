@@ -6,13 +6,33 @@ import {connect} from "react-redux";
 import Post from "../post/Post";
 import {fetchPosts} from "../post/post.action";
 import {sort} from "../utils/time.helper";
+import {withRouter} from "react-router-dom";
 
 
 class PostsPage extends PureComponent {
 
     componentWillMount() {
         this.props.dispatch(fetchCategories());
-        this.props.dispatch(fetchPosts());
+
+        this.fetchPosts();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.location !== this.props.location)
+            this.fetchPosts(nextProps.match.params.categoryID);
+    }
+
+    getCategory(id) {
+        return id && id !== 'all' ? id : '';
+    }
+
+    onCategory = category => {
+        this.props.history.replace(`/category/${category}`);
+    };
+
+
+    fetchPosts(id) {
+        this.props.dispatch(fetchPosts(this.getCategory(id)));
     }
 
     render() {
@@ -22,12 +42,13 @@ class PostsPage extends PureComponent {
             <Grid container>
 
                 <Grid item xs={12}>
-                    <CategoriesChips categories={categories}/>
+                    <CategoriesChips
+                        onSelect={this.onCategory}
+                        categories={categories}/>
                 </Grid>
 
                 <Grid item xs={12}>
                     {posts.map(p => <Post key={p.id} post={p}/>)}
-
                 </Grid>
             </Grid>
         );
@@ -47,4 +68,4 @@ export const mapStateToProps = (state) => {
         posts
     }
 };
-export default connect(mapStateToProps)(PostsPage);
+export default withRouter(connect(mapStateToProps)(PostsPage));

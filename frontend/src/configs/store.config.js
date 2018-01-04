@@ -23,6 +23,8 @@ const configureStore = () => {
                 store.replaceReducer(rootReducer)
             })
         }
+
+
     }
 
     return store;

@@ -10,6 +10,7 @@ const StyledDiv = styled.div`
     display: flex;
     flex-direction: column;
     margin-right: 20px;
+  
     
     svg{
         transform: scale(2);
@@ -36,7 +37,7 @@ class AddSubtract extends PureComponent {
 
         return (
             <StyledDiv>
-                <a onClick={this.onAdd}> <ArrowDropUp height={100}/></a>
+                <a onClick={this.onAdd}> <ArrowDropUp/></a>
                 <a onClick={this.onRemove}> <ArrowDropDown/></a>
             </StyledDiv>
         )
