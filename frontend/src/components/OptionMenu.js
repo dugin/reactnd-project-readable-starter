@@ -5,15 +5,18 @@ import styled from "styled-components";
 import MoreVert from 'material-ui-icons/MoreVert';
 import PropTypes from 'prop-types';
 import colors from "../styles/constants/colors";
+import {StyledButton} from "../styles/styles";
 
 
 const StyledDiv = styled.div`
       Button{
-        padding-right: 0;
-      }
-      span{
+        padding: 0;
+        
+          span{
         color: ${colors.primary};    
       }
+      }
+    
 `;
 
 class OptionMenu extends PureComponent {
@@ -36,13 +39,13 @@ class OptionMenu extends PureComponent {
         const {options} = this.props;
         return (
             <StyledDiv>
-                <Button
+                <StyledButton
                     aria-owns={this.state.open ? 'select-menu' : null}
                     aria-haspopup="true"
                     onClick={this.handleClick}
                 >
                     <MoreVert/>
-                </Button>
+                </StyledButton>
                 <Menu
                     anchorEl={this.state.anchorEl}
                     open={this.state.open}

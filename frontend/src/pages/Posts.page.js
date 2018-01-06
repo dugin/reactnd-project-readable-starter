@@ -3,7 +3,7 @@ import {Grid} from "material-ui";
 import CategoriesChips from "../category/CategoriesChips";
 import {fetchCategories} from "../category/category.action";
 import {connect} from "react-redux";
-import Post from "../post/Post";
+import Card from "../components/card/index";
 import {fetchPosts} from "../post/post.action";
 import {sort} from "../utils/time.helper";
 import {withRouter} from "react-router-dom";
@@ -27,7 +27,7 @@ class PostsPage extends PureComponent {
     }
 
     onCategory = category => {
-        this.props.history.replace(`/category/${category}`);
+        this.props.history.replace(`/${category}`);
     };
 
 
@@ -48,7 +48,7 @@ class PostsPage extends PureComponent {
                 </Grid>
 
                 <Grid item xs={12}>
-                    {posts.map(p => <Post key={p.id} post={p}/>)}
+                    {posts.map(p => <Card key={p.id} post={p}/>)}
                 </Grid>
             </Grid>
         );
@@ -57,7 +57,7 @@ class PostsPage extends PureComponent {
 
 export const mapStateToProps = (state) => {
     const {categories, isDoneCategory, errorCategory} = state.categories;
-    let {posts, isDonePost, errorPost, filterBy, sortBy} = state.posts;
+    let {posts, isDonePost, errorPost, sortBy} = state.posts;
 
     posts = sortBy ? sort(sortBy, posts) : posts;
 

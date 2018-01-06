@@ -5,6 +5,8 @@ import {connect} from "react-redux";
 import PostsPage from "./pages/Posts.page";
 import media from 'styled-media-query';
 import {Redirect, Switch, Route, withRouter} from "react-router-dom";
+import PostDetailPage from "./pages/PostDetail.page";
+
 
 const Container = styled.main`
   max-width: 1024px;
@@ -26,8 +28,9 @@ class App extends PureComponent {
                 <Header/>
                 <Container>
                     <Switch>
-                        <Route exact path="/category/:categoryID" component={PostsPage}/>
+                        <Route exact path="/:categoryID" component={PostsPage}/>
                         <Route exact path="/edit/:postID" component={PostsPage}/>
+                        <Route exact path="/:categoryID/:postID" component={PostDetailPage}/>
                         <Route exact path="/" component={PostsPage}/>
                         <Redirect to="/" path="**" component={PostsPage}/>
                     </Switch>

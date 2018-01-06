@@ -1,89 +1,103 @@
-import {FETCH_POSTS, FILTER_POSTS, REMOVE_POST, SORT_POSTS, VOTE_ON_POST} from "./post.type";
+import {FETCH_POSTS, FETCH_POST,  REMOVE_POST, SORT_POSTS, VOTE_ON_POST} from "./post.type";
 
 export const initialState = {
-    isDone: false,
-    error: null,
-    posts: []
+    isDonePost: false,
+    errorPost: null,
+    posts: [],
+    post: {}
 };
 
 export const postsReducer = (state = initialState, action) => {
 
     switch (action.type) {
+
         case FETCH_POSTS.PENDING:
             return {
                 ...state,
-                isDone: false,
-                error: null,
+                isDonePost: false,
+                errorPost: null,
             };
         case FETCH_POSTS.FULFILLED:
             return {
                 ...state,
                 posts: action.payload.data,
-                isDone: true,
-                error: null,
+                isDonePost: true,
+                errorPost: null,
             };
         case FETCH_POSTS.REJECTED:
             return {
                 ...state,
-                error: action.payload,
-                isDone: true
+                errorPost: action.payload,
+                isDonePost: true
+            };
+
+        case FETCH_POST.PENDING:
+            return {
+                ...state,
+                isDonePost: false,
+                errorPost: null,
+            };
+        case FETCH_POST.FULFILLED:
+            return {
+                ...state,
+                post: action.payload.data,
+                isDonePost: true,
+                errorPost: null,
+            };
+        case FETCH_POST.REJECTED:
+            return {
+                ...state,
+                errorPost: action.payload,
+                isDonePost: true
             };
 
         case VOTE_ON_POST.PENDING:
             return {
                 ...state,
-                isDone: false,
-                error: null,
+                isDonePost: false,
+                errorPost: null,
             };
         case VOTE_ON_POST.FULFILLED:
             return {
                 ...state,
                 posts: state.posts.map(p => p.id === action.payload.data.id ? action.payload.data : p),
-                isDone: true,
-                error: null,
+                isDonePost: true,
+                errorPost: null,
             };
 
         case VOTE_ON_POST.REJECTED:
             return {
                 ...state,
-                error: action.payload,
-                isDone: true
+                errorPost: action.payload,
+                isDonePost: true
             };
 
         case REMOVE_POST.REJECTED:
             return {
                 ...state,
-                error: action.payload,
-                isDone: true
+                errorPost: action.payload,
+                isDonePost: true
             };
 
         case REMOVE_POST.PENDING:
             return {
                 ...state,
-                isDone: false,
-                error: null,
+                isDonePost: false,
+                errorPost: null,
             };
         case REMOVE_POST.FULFILLED:
             return {
                 ...state,
                 posts: state.posts.filter(p => p.id !== action.payload.data.id),
-                isDone: true,
-                error: null,
+                isDonePost: true,
+                errorPost: null,
             };
-
 
         case SORT_POSTS:
             return {
                 ...state,
                 sortBy: action.sortBy
             };
-
-        case FILTER_POSTS:
-            return {
-                ...state,
-                filterBy: action.filterBy
-            };
-
 
         default :
             return state;

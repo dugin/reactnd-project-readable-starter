@@ -44,12 +44,20 @@ const fetchPosts = (category = '') => {
     return api.get(`${category}/posts/`);
 };
 
+const fetchComments = (postID) => {
+    return api.get(`/posts/${postID}/comments`);
+};
+
 const fetchPost = (id) => {
     return api.get(`/posts/${id}`);
 };
 
 const voteOnPost = (id, voteType) => {
     return api.post(`/posts/${id}/`, {option: voteType});
+};
+
+const voteOnComment = (id, voteType) => {
+    return api.post(`/comments/${id}/`, {option: voteType});
 };
 
 const removePost = (id) => {
@@ -62,5 +70,7 @@ export {
     fetchPosts,
     fetchPost,
     voteOnPost,
-    removePost
+    removePost,
+    fetchComments,
+    voteOnComment
 }

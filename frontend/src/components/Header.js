@@ -7,6 +7,9 @@ import SelectMenu from "./SelectMenu";
 import {sortable} from "../utils/constants";
 import {connect} from "react-redux";
 import {sortPosts} from "../post/post.action";
+import {Link, withRouter} from "react-router-dom";
+import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft';
+
 
 const StyledTypography = styled(Typography)`
    font-weight: 300;
@@ -17,29 +20,56 @@ const StyledToolbar = styled(Toolbar)`
    display: flex;
 `;
 
+const StyledBackButton = styled(Link)`
+    visibility:  ${props => props.shouldShowBack ? 'visible': 'hidden'  };
+    color: white;
+    margin-top: 8px;
+     svg{
+        transform: scale(1.5);
+    }
+`;
+
+const StyledSelectMenuContainer = styled.div`
+     visibility:  ${props => props.shouldShowBack ? 'visible': 'hidden'  };
+`;
+
+
 class Header extends PureComponent {
 
     onSort = (sortBy) => {
         this.props.dispatch(sortPosts(sortBy));
     };
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+    }
+
+    shouldShowBack = () => {
+        return this.props.location.pathname.split('/').length === 3  ;
+    };
+
     render() {
         return (
             <AppBar position="static">
+
                 <StyledToolbar>
+                    <StyledBackButton shouldShowBack={this.shouldShowBack()} to='/'><KeyboardArrowLeft/></StyledBackButton>
                     <StyledTypography type="title" color="inherit">
                         My Readable
                     </StyledTypography>
 
+                    <StyledSelectMenuContainer shouldShowBack={!this.shouldShowBack()}>
                     <SelectMenu
                         defaultValue='Sort By'
                         options={sortable}
                         onSelect={this.onSort}
                     />
+                    </StyledSelectMenuContainer>
+
                 </StyledToolbar>
             </AppBar>
         );
     };
 }
 
-export default connect()(Header);
+export default withRouter(connect()(Header));

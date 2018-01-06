@@ -8,7 +8,3 @@ export const REMOVE_POST = createActionSet('REMOVE_POST');
 
 export const SORT_POSTS = 'SORT_POSTS';
 
-
-
-
-export const FILTER_POSTS = 'FILTER_POSTS';
