@@ -6,6 +6,7 @@ import PostsPage from "./pages/Posts.page";
 import media from 'styled-media-query';
 import {Redirect, Switch, Route, withRouter} from "react-router-dom";
 import PostDetailPage from "./pages/Post-detail.page";
+import Footer from "./components/Footer";
 
 
 const Container = styled.main`
@@ -13,6 +14,10 @@ const Container = styled.main`
   margin-left: auto;
   margin-right: auto;
   padding: 0 16px;
+  min-height: calc(100vh - 130px);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
   
   ${media.greaterThan('medium')`
     padding: 0 24px;
@@ -35,6 +40,7 @@ class App extends PureComponent {
                         <Redirect to="/" path="**" component={PostsPage}/>
                     </Switch>
                 </Container>
+                <Footer/>
             </div>
         );
     }

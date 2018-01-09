@@ -19,7 +19,6 @@ import {sort} from "../utils/time.helper";
 import {fetchCategories} from "../category/category.action";
 
 const StyledPostDetail = styled.div`
-    background-color: white;
     margin-bottom: 20px;
 `;
 

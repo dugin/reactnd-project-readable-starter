@@ -20,7 +20,7 @@ const StyledSection = styled.section`
   
   ${props => props.type === 'detail' && css`
     margin-top: 10px;
-    background: ${colors.background};
+    background-color: ${colors.background};
   `
     }
   
