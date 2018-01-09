@@ -35,7 +35,7 @@ class RemoveDialog extends PureComponent {
                 >
                     <DialogContent>
                         <DialogContentText>
-                            Are you sure you want to remove <u>{this.props.post.title}</u> ?
+                            Are you sure you want to remove <u>{this.props.info.title}</u> ?
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
@@ -53,7 +53,7 @@ class RemoveDialog extends PureComponent {
 }
 
 RemoveDialog.propTypes = {
-    post: PropTypes.object.isRequired,
+    info: PropTypes.object.isRequired,
     open: PropTypes.bool,
     onClose: PropTypes.func,
     onRemove: PropTypes.func

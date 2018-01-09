@@ -1,15 +1,28 @@
 import React, {PureComponent} from 'react';
-import {Grid} from "material-ui";
+import {Button, Grid} from "material-ui";
 import CategoriesChips from "../category/CategoriesChips";
 import {fetchCategories} from "../category/category.action";
 import {connect} from "react-redux";
 import Card from "../components/card/index";
-import {fetchPosts} from "../post/post.action";
+import {createPost, editPost, fetchPosts, removePost, voteOnPost} from "../post/post.action";
 import {sort} from "../utils/time.helper";
 import {withRouter} from "react-router-dom";
+import AddIcon from 'material-ui-icons/Add';
+import styled from 'styled-components';
+import CreateEditModal from "./CreateEdit.modal";
+
+const StyledAddButton = styled(Button)`
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+`;
 
 
 class PostsPage extends PureComponent {
+
+    state = {
+        openCreateDialog: false
+    };
 
     componentWillMount() {
         this.props.dispatch(fetchCategories());
@@ -20,6 +33,7 @@ class PostsPage extends PureComponent {
     componentWillReceiveProps(nextProps) {
         if (nextProps.location !== this.props.location)
             this.fetchPosts(nextProps.match.params.categoryID);
+
     }
 
     getCategory(id) {
@@ -35,6 +49,24 @@ class PostsPage extends PureComponent {
         this.props.dispatch(fetchPosts(this.getCategory(id)));
     }
 
+    onRemove = (id) => {
+        this.props.dispatch(removePost(id))
+    };
+
+    onEdit = (post) => {
+        this.props.dispatch(editPost(post.id, post))
+    };
+
+    onCreate = (post) => {
+        this.props.dispatch(createPost(post));
+        this.setState({openCreateDialog: false})
+    };
+
+
+    onVote = (id, voteType) => {
+        this.props.dispatch(voteOnPost(id, voteType))
+    };
+
     render() {
         const {categories, posts} = this.props;
 
@@ -48,8 +80,27 @@ class PostsPage extends PureComponent {
                 </Grid>
 
                 <Grid item xs={12}>
-                    {posts.map(p => <Card key={p.id} post={p}/>)}
+                    {posts.map(p => (
+                        <Card
+                            key={p.id}
+                            info={p}
+                            onRemove={this.onRemove}
+                            onEdit={this.onEdit}
+                            onAddOrSubtract={this.onVote}
+                            categories={categories}
+                        />
+                    ))}
                 </Grid>
+                <StyledAddButton fab color='primary' onClick={() => this.setState({openCreateDialog: true})}>
+                    <AddIcon/>
+                </StyledAddButton>
+
+                <CreateEditModal
+                    onClose={() => this.setState({openCreateDialog: false})}
+                    onSave={this.onCreate}
+                    open={this.state.openCreateDialog}
+                    categories={categories.filter(c => c !== 'all')}
+                />
             </Grid>
         );
     }

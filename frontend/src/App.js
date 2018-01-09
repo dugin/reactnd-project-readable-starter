@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import PostsPage from "./pages/Posts.page";
 import media from 'styled-media-query';
 import {Redirect, Switch, Route, withRouter} from "react-router-dom";
-import PostDetailPage from "./pages/PostDetail.page";
+import PostDetailPage from "./pages/Post-detail.page";
 
 
 const Container = styled.main`

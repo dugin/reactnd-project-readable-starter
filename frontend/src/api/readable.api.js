@@ -64,6 +64,25 @@ const removePost = (id) => {
     return api.delete(`/posts/${id}/`);
 };
 
+const createPost = (post) => {
+    return api.post(`/posts`, post);
+};
+
+const editPost = (id, post) => {
+    return api.put(`/posts/${id}/`, post);
+};
+
+const removeComment = (id) => {
+    return api.delete(`/comments/${id}/`);
+};
+
+const createComment = (id, comment) => {
+    return api.post(`/comments`, comment);
+};
+
+const editComment = (id, comment) => {
+    return api.put(`/comments/${id}/`, comment);
+};
 
 export {
     fetchCategories,
@@ -72,5 +91,10 @@ export {
     voteOnPost,
     removePost,
     fetchComments,
-    voteOnComment
+    voteOnComment,
+    removeComment,
+    createComment,
+    createPost,
+    editComment,
+    editPost
 }

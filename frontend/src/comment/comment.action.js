@@ -1,6 +1,10 @@
 import * as api from '../api/readable.api';
 
-import {FETCH_COMMENTS, VOTE_ON_COMMENT} from './comment.type';
+import {
+    FETCH_COMMENTS, VOTE_ON_COMMENT, REMOVE_COMMENT, EDIT_COMMENT, CREATE_COMMENT,
+    SORT_COMMENTS
+} from './comment.type';
+
 
 export const fetchComments = (postID) => {
     return {
@@ -15,4 +19,35 @@ export const voteOnComment = (id, voteType) => {
         payload: api.voteOnComment(id, voteType)
     }
 };
+
+export const removeComment = (id) => {
+    return {
+        type: REMOVE_COMMENT.BASE,
+        payload: api.removeComment(id)
+    }
+};
+
+export const createComment = (comment) => {
+    return {
+        type: CREATE_COMMENT.BASE,
+        payload: api.createComment(comment.id, comment)
+    }
+};
+
+export const editComment = (comment) => {
+    return {
+        type: EDIT_COMMENT.BASE,
+        payload: api.editComment(comment.id, comment)
+    }
+};
+
+export const sortComments = (sortBy) => {
+    return {
+        type: SORT_COMMENTS,
+        sortBy
+    }
+};
+
+
+
 

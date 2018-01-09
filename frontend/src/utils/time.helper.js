@@ -6,7 +6,9 @@ export const sort = (sortBy, posts) => {
         case constants.sortable[0]:
             return [...posts.sort((a, b) => b.voteScore - a.voteScore)];
         case constants.sortable[1]:
-            return [...posts.sort((a, b) => moment(b.timestamp).isAfter(moment(a.timestamp), 's'))];
+            return [...posts.sort((a, b) =>{
+                return moment(b.timestamp).isAfter(moment(a.timestamp), 'ms')
+            })];
 
         default:
             return [...posts];

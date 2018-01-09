@@ -1,10 +1,9 @@
-import {FETCH_POSTS, FETCH_POST,  REMOVE_POST, SORT_POSTS, VOTE_ON_POST} from "./post.type";
+import {FETCH_POSTS, FETCH_POST, REMOVE_POST, SORT_POSTS, VOTE_ON_POST, CREATE_POST, EDIT_POST} from "./post.type";
 
 export const initialState = {
     isDonePost: false,
     errorPost: null,
     posts: [],
-    post: {}
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -40,7 +39,7 @@ export const postsReducer = (state = initialState, action) => {
         case FETCH_POST.FULFILLED:
             return {
                 ...state,
-                post: action.payload.data,
+                posts: [action.payload.data],
                 isDonePost: true,
                 errorPost: null,
             };
@@ -71,6 +70,49 @@ export const postsReducer = (state = initialState, action) => {
                 errorPost: action.payload,
                 isDonePost: true
             };
+
+        case CREATE_POST.REJECTED:
+            return {
+                ...state,
+                errorPost: action.payload,
+                isDonePost: true
+            };
+
+        case CREATE_POST.PENDING:
+            return {
+                ...state,
+                isDonePost: false,
+                errorPost: null,
+            };
+        case CREATE_POST.FULFILLED:
+            return {
+                ...state,
+                posts: [...state.posts, action.payload.data],
+                isDonePost: true,
+                errorPost: null,
+            };
+
+        case EDIT_POST.REJECTED:
+            return {
+                ...state,
+                errorPost: action.payload,
+                isDonePost: true
+            };
+
+        case EDIT_POST.PENDING:
+            return {
+                ...state,
+                isDonePost: false,
+                errorPost: null,
+            };
+        case EDIT_POST.FULFILLED:
+            return {
+                ...state,
+                posts: state.posts.map(p => p.id === action.payload.data.id ? action.payload.data : p),
+                isDonePost: true,
+                errorPost: null,
+            };
+
 
         case REMOVE_POST.REJECTED:
             return {

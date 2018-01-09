@@ -1,5 +1,5 @@
 import * as api from '../api/readable.api';
-import {FETCH_POSTS, FETCH_POST, REMOVE_POST, SORT_POSTS, VOTE_ON_POST} from "./post.type";
+import {FETCH_POSTS, FETCH_POST, REMOVE_POST, SORT_POSTS, VOTE_ON_POST, CREATE_POST, EDIT_POST} from "./post.type";
 
 export const fetchPosts = (category) => {
     return {
@@ -35,3 +35,20 @@ export const removePost = (id) => {
         payload: api.removePost(id)
     }
 };
+
+
+export const createPost = (post) => {
+    return {
+        type: CREATE_POST.BASE,
+        payload: api.createPost(post)
+    }
+};
+
+
+export const editPost = (id, post) => {
+    return {
+        type: EDIT_POST.BASE,
+        payload: api.editPost(id, post)
+    }
+};
+

@@ -21,7 +21,7 @@ const StyledToolbar = styled(Toolbar)`
 `;
 
 const StyledBackButton = styled(Link)`
-    visibility:  ${props => props.shouldShowBack ? 'visible': 'hidden'  };
+    visibility:  ${props => props.shouldshowback === 'true' ? 'visible': 'hidden'  };
     color: white;
     margin-top: 8px;
      svg{
@@ -30,7 +30,7 @@ const StyledBackButton = styled(Link)`
 `;
 
 const StyledSelectMenuContainer = styled.div`
-     visibility:  ${props => props.shouldShowBack ? 'visible': 'hidden'  };
+     visibility:  ${props => props.shouldshowback === 'true' ? 'hidden' :  'visible'  };
 `;
 
 
@@ -45,7 +45,7 @@ class Header extends PureComponent {
     }
 
     shouldShowBack = () => {
-        return this.props.location.pathname.split('/').length === 3  ;
+        return (this.props.location.pathname.split('/').length === 3).toString();
     };
 
     render() {
@@ -53,12 +53,12 @@ class Header extends PureComponent {
             <AppBar position="static">
 
                 <StyledToolbar>
-                    <StyledBackButton shouldShowBack={this.shouldShowBack()} to='/'><KeyboardArrowLeft/></StyledBackButton>
+                    <StyledBackButton shouldshowback={this.shouldShowBack()} to='/'><KeyboardArrowLeft/></StyledBackButton>
                     <StyledTypography type="title" color="inherit">
                         My Readable
                     </StyledTypography>
 
-                    <StyledSelectMenuContainer shouldShowBack={!this.shouldShowBack()}>
+                    <StyledSelectMenuContainer shouldshowback={this.shouldShowBack()}>
                     <SelectMenu
                         defaultValue='Sort By'
                         options={sortable}

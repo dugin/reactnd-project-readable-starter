@@ -11,6 +11,7 @@ import {StyledButton} from "../styles/styles";
 const StyledDiv = styled.div`
      Button{
         padding: 0;
+        height: 100%;
           }
       span{
         color: white;  
@@ -41,7 +42,6 @@ class SelectMenu extends PureComponent {
         const {defaultValue, options, type} = this.props;
         const {selectedValue} = this.state;
 
-        console.log(type);
         return (
             <StyledDiv type={type}>
                 <StyledButton
