@@ -17,6 +17,16 @@ const StyledAddButton = styled(Button)`
     right: 20px;
 `;
 
+const StyledNotFound = styled.h1`
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    margin-left: -24px;
+    text-align: center;
+    transform: translateY(-50%);
+`;
+
+
 
 class PostsPage extends PureComponent {
 
@@ -25,9 +35,11 @@ class PostsPage extends PureComponent {
     };
 
     componentWillMount() {
-        this.props.dispatch(fetchCategories());
+        const {posts, categories} = this.props;
 
-        this.fetchPosts();
+        categories.length === 0 && this.props.dispatch(fetchCategories());
+
+        posts.length <= 1 && this.fetchPosts();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -80,7 +92,7 @@ class PostsPage extends PureComponent {
                 </Grid>
 
                 <Grid item xs={12}>
-                    {posts.map(p => (
+                    {posts.length > 0 ? posts.map(p => (
                         <Card
                             key={p.id}
                             info={p}
@@ -89,7 +101,7 @@ class PostsPage extends PureComponent {
                             onAddOrSubtract={this.onVote}
                             categories={categories}
                         />
-                    ))}
+                    )) : <StyledNotFound>No posts found</StyledNotFound>}
                 </Grid>
                 <StyledAddButton fab color='primary' onClick={() => this.setState({openCreateDialog: true})}>
                     <AddIcon/>

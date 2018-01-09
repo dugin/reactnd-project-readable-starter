@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {fetchPost, removePost, voteOnPost} from "../post/post.action";
+import {editPost, fetchPost, removePost, voteOnPost} from "../post/post.action";
 import {sortable, TYPE} from "../utils/constants";
 import SelectMenu from "../components/SelectMenu";
 import AddIcon from 'material-ui-icons/Add';
@@ -12,12 +12,15 @@ import {
     voteOnComment
 } from "../comment/comment.action";
 import CreateEditModal from "./CreateEdit.modal";
+import isEmpty from 'lodash/isEmpty';
 
 import Card from "../components/card/index";
 import {sort} from "../utils/time.helper";
+import {fetchCategories} from "../category/category.action";
 
 const StyledPostDetail = styled.div`
     background-color: white;
+    margin-bottom: 20px;
 `;
 
 const StyledDiv = styled.div`
@@ -44,8 +47,11 @@ class PostDetailPage extends PureComponent {
 
 
     componentWillMount() {
-        this.props.dispatch(fetchPost(this.props.match.params.postID));
+        const {post, categories} = this.props;
+
         this.props.dispatch(fetchComments(this.props.match.params.postID));
+        isEmpty(post) && this.props.dispatch(fetchPost(this.props.match.params.postID));
+        categories.length === 0 && this.props.dispatch(fetchCategories());
     }
 
     onSort = (sortBy) => {
@@ -53,8 +59,14 @@ class PostDetailPage extends PureComponent {
     };
 
     onRemovePost = (id) => {
-        this.props.dispatch(removePost(id))
+        this.props.dispatch(removePost(id));
+        this.props.history.replace('/');
     };
+
+    onEditPost = (post) => {
+        this.props.dispatch(editPost(post.id, post));
+    };
+
 
     onVotePost = (id, voteType) => {
         this.props.dispatch(voteOnPost(id, voteType))
@@ -77,16 +89,18 @@ class PostDetailPage extends PureComponent {
     };
 
     render() {
-        const {post, comments} = this.props;
+        const {post, comments, categories} = this.props;
         return (
             <StyledPostDetail>
                 <section>
                     <Card
                         info={post}
                         onRemove={this.onRemovePost}
+                        onEdit={this.onEditPost}
                         onAddOrSubtract={this.onVotePost}
                         amount={comments.length}
                         type={TYPE.detail}
+                        categories={categories}
                     />
                 </section>
                 <section>
@@ -124,23 +138,26 @@ class PostDetailPage extends PureComponent {
                     onSave={this.onCreateComment}
                     open={this.state.openCreateDialog}
                     type={TYPE.comment}
+
                 />
             </StyledPostDetail>
         )
     }
 }
 
-export const mapStateToProps = (state) => {
+export const mapStateToProps = (state, props) => {
     let {posts, isDonePost, errorPost} = state.posts;
     let {comments, isDoneComment, errorComment, sortBy} = state.comments;
+    const {categories, isDoneCategory, errorCategory} = state.categories;
 
     comments = sortBy ? sort(sortBy, comments) : comments;
 
     return {
-        isLoading: !isDonePost && !isDoneComment,
-        error: !!errorPost && !!errorComment,
-        post: posts[0] || {},
-        comments
+        isLoading: !isDonePost || !isDoneComment || !isDoneCategory,
+        error: !!errorPost || !!errorComment || !!errorCategory,
+        post: posts.find(p => p.id === props.match.params.postID) || {},
+        comments,
+        categories
     }
 };
 

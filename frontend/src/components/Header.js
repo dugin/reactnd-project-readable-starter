@@ -40,10 +40,6 @@ class Header extends PureComponent {
         this.props.dispatch(sortPosts(sortBy));
     };
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-    }
-
     shouldShowBack = () => {
         return (this.props.location.pathname.split('/').length === 3).toString();
     };

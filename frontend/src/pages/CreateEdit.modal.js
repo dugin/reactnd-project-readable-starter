@@ -65,7 +65,7 @@ class CreateEditModal extends PureComponent {
     }
 
     render() {
-        const {categories, fullScreen, type, mode} = this.props;
+        const {categories, fullScreen, type} = this.props;
 
         return (
             <div>
@@ -77,7 +77,7 @@ class CreateEditModal extends PureComponent {
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <DialogTitle id="form-dialog-title">{this.setDialogTitle()}</DialogTitle>
                         <DialogContent>
-                            {type === TYPE.post && (
+                            {type !== TYPE.comment && (
                                 <FormControl fullWidth margin="dense" required>
                                     <InputLabel htmlFor="title">Title</InputLabel>
                                     <Input autoFocus
@@ -111,7 +111,7 @@ class CreateEditModal extends PureComponent {
                                 />
                             </FormControl>
 
-                            {type === TYPE.post && (
+                            {type !== TYPE.comment && (
                                 <FormControl margin="dense" required fullWidth>
                                     <InputLabel htmlFor="category">Category</InputLabel>
                                     <Select
