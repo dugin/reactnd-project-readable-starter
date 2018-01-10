@@ -1,4 +1,7 @@
-import {FETCH_POSTS, FETCH_POST, REMOVE_POST, SORT_POSTS, VOTE_ON_POST, CREATE_POST, EDIT_POST} from "./post.type";
+import {
+    FETCH_POSTS, FETCH_POST, REMOVE_POST, SORT_POSTS, VOTE_ON_POST, CREATE_POST, EDIT_POST,
+    SET_TO_FAVORITE
+} from "./post.type";
 
 export const initialState = {
     isDonePost: false,
@@ -131,6 +134,27 @@ export const postsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: state.posts.filter(p => p.id !== action.payload.data.id),
+                isDonePost: true,
+                errorPost: null,
+            };
+
+        case SET_TO_FAVORITE.REJECTED:
+            return {
+                ...state,
+                errorPost: action.payload,
+                isDonePost: true
+            };
+
+        case SET_TO_FAVORITE.PENDING:
+            return {
+                ...state,
+                isDonePost: false,
+                errorPost: null,
+            };
+        case SET_TO_FAVORITE.FULFILLED:
+            return {
+                ...state,
+                posts: state.posts.map(p => p.id === action.payload.data.id ? action.payload.data : p),
                 isDonePost: true,
                 errorPost: null,
             };

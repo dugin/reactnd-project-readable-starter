@@ -4,7 +4,7 @@ import CategoriesChips from "../category/CategoriesChips";
 import {fetchCategories} from "../category/category.action";
 import {connect} from "react-redux";
 import Card from "../components/card/index";
-import {createPost, editPost, fetchPosts, removePost, voteOnPost} from "../post/post.action";
+import {createPost, editPost, fetchPosts, removePost, setPostToFavorite, voteOnPost} from "../post/post.action";
 import {sort} from "../utils/time.helper";
 import {withRouter} from "react-router-dom";
 import AddIcon from 'material-ui-icons/Add';
@@ -18,12 +18,9 @@ const StyledAddButton = styled(Button)`
 `;
 
 const StyledNotFound = styled.h1`
-    position: absolute;
-    top: 50%;
+    margin-top: 20px;
     width: 100%;
-    margin-left: -24px;
     text-align: center;
-    transform: translateY(-50%);
 `;
 
 
@@ -79,6 +76,10 @@ class PostsPage extends PureComponent {
         this.props.dispatch(voteOnPost(id, voteType))
     };
 
+    setFavoritePost = (id, favorite) => {
+        this.props.dispatch(setPostToFavorite(id, favorite));
+    };
+
     render() {
         const {categories, posts} = this.props;
 
@@ -100,6 +101,8 @@ class PostsPage extends PureComponent {
                             onEdit={this.onEdit}
                             onAddOrSubtract={this.onVote}
                             categories={categories}
+                            onFavorite={this.setFavoritePost}
+
                         />
                     )) : <StyledNotFound>No posts found</StyledNotFound>}
                 </Grid>

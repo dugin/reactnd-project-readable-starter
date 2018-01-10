@@ -12,7 +12,10 @@ import styled, {css} from 'styled-components';
 import colors from "../../styles/constants/colors";
 import CreateEditModal from "../../pages/CreateEdit.modal";
 import {cardActions, MODE, TYPE} from "../../utils/constants";
-import {Hidden} from "material-ui";
+import {Hidden, Tooltip} from "material-ui";
+import StarBorderIcon from 'material-ui-icons/StarBorder';
+import StarIcon from 'material-ui-icons/Star';
+
 
 const StyledSection = styled.section`
  background-color:  white;
@@ -40,9 +43,17 @@ const StyledDiv = styled.section`
     }
 `;
 
+const StyledIcon = styled.a`
+    svg{
+        margin-bottom: 20px;
+        transform: scale(1.5);
+        color: ${colors.primary};
+    }
+`;
+
 const StyledAddSubtractDiv = styled.div`
     display: flex;
-    align-items: center;
+    flex-direction: column;
 `;
 
 const StyledOptions = styled.section`
@@ -63,10 +74,11 @@ class Card extends PureComponent {
 
     state = {
         openRemoveDialog: false,
-        openEditDialog: false
+        openEditDialog: false,
+        openTooltip: false
     };
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
     }
 
     onAddOrSubtract = (voteType) => {
@@ -93,6 +105,14 @@ class Card extends PureComponent {
         this.setState({openEditDialog: false})
     };
 
+    handleTooltipActions = () => {
+        this.setState({openTooltip: !this.state.openTooltip});
+    };
+
+    onFavorite = () => {
+        const {favorite} = this.props.info;
+        this.props.onFavorite(this.props.info.id, favorite !== null ? favorite : false);
+    };
 
     render() {
         const {info, type, amount, categories} = this.props;
@@ -101,6 +121,23 @@ class Card extends PureComponent {
             <StyledSection type={type}>
                 <StyledDiv>
                     <StyledAddSubtractDiv>
+                        {type !== TYPE.comment &&
+                        <Tooltip
+                            title={`${info.favorite ? 'Remove' : 'Add'} to Favorite`}
+                            onClose={this.handleTooltipActions}
+                            enterDelay={200}
+                            leaveDelay={300}
+                            onOpen={this.handleTooltipActions}
+                            open={this.state.openTooltip}
+                            placement="bottom"
+                        >
+                            <StyledIcon onClick={this.onFavorite}>
+                                {!info.favorite ? <StarBorderIcon/> : <StarIcon/>}
+
+                            </StyledIcon>
+                        </Tooltip>
+                        }
+
                         <AddSubtract onAddOrSubtract={this.onAddOrSubtract}/>
                     </StyledAddSubtractDiv>
 
@@ -163,8 +200,9 @@ Card.propTypes = {
     onRemove: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onAddOrSubtract: PropTypes.func.isRequired,
+    onFavorite: PropTypes.func,
     type: PropTypes.string,
     amount: PropTypes.number,
-    categories: PropTypes.array
+    categories: PropTypes.array,
 };
 export default withRouter(Card);

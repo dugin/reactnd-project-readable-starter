@@ -1,5 +1,8 @@
 import * as api from '../api/readable.api';
-import {FETCH_POSTS, FETCH_POST, REMOVE_POST, SORT_POSTS, VOTE_ON_POST, CREATE_POST, EDIT_POST} from "./post.type";
+import {
+    FETCH_POSTS, FETCH_POST, REMOVE_POST, SORT_POSTS, VOTE_ON_POST, CREATE_POST, EDIT_POST,
+    SET_TO_FAVORITE
+} from "./post.type";
 
 export const fetchPosts = (category) => {
     return {
@@ -52,3 +55,9 @@ export const editPost = (id, post) => {
     }
 };
 
+export const setPostToFavorite = (id, favorite) => {
+    return {
+        type: SET_TO_FAVORITE.BASE,
+        payload: api.setPostToFavorite(id, favorite)
+    }
+};

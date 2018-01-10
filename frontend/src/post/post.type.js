@@ -9,6 +9,8 @@ export const REMOVE_POST = createActionSet('REMOVE_POST');
 export const CREATE_POST = createActionSet('CREATE_POST');
 export const EDIT_POST = createActionSet('EDIT_POST');
 
+export const SET_TO_FAVORITE = createActionSet('SET_TO_FAVORITE');
+
 
 export const SORT_POSTS = 'SORT_POSTS';
 

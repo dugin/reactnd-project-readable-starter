@@ -1,4 +1,4 @@
-export const sortable = ['vote score', 'created at'];
+export const sortable = ['vote score', 'created at', 'favorite'];
 
 export const cardActions = ['edit', 'remove'];
 

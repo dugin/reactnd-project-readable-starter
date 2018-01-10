@@ -9,6 +9,8 @@ export const sort = (sortBy, posts) => {
             return [...posts.sort((a, b) =>{
                 return moment(b.timestamp).isAfter(moment(a.timestamp), 'ms')
             })];
+        case constants.sortable[2]:
+            return [...posts.sort((a, b) => b.favorite? 1 : -1)];
 
         default:
             return [...posts];

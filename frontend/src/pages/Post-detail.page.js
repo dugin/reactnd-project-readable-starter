@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {editPost, fetchPost, removePost, voteOnPost} from "../post/post.action";
+import {editPost, fetchPost, removePost, setPostToFavorite, voteOnPost} from "../post/post.action";
 import {sortable, TYPE} from "../utils/constants";
 import SelectMenu from "../components/SelectMenu";
 import AddIcon from 'material-ui-icons/Add';
@@ -87,6 +87,10 @@ class PostDetailPage extends PureComponent {
         this.setState({openCreateDialog: false})
     };
 
+    setFavoritePost = (id, favorite) => {
+        this.props.dispatch(setPostToFavorite(id, favorite));
+    };
+
     render() {
         const {post, comments, categories} = this.props;
         return (
@@ -100,6 +104,7 @@ class PostDetailPage extends PureComponent {
                         amount={comments.length}
                         type={TYPE.detail}
                         categories={categories}
+                        onFavorite={this.setFavoritePost}
                     />
                 </section>
                 <section>
@@ -114,7 +119,7 @@ class PostDetailPage extends PureComponent {
                         <SelectMenu
                             type='primary'
                             defaultValue='Sort By'
-                            options={sortable}
+                            options={sortable.slice(0, 2)}
                             onSelect={this.onSort}
                         />
 

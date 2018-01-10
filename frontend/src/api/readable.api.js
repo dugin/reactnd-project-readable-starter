@@ -72,6 +72,11 @@ const editPost = (id, post) => {
     return api.put(`/posts/${id}/`, post);
 };
 
+const setPostToFavorite = (id, favorite) => {
+    return api.put(`/posts/${id}/`, {favorite: !favorite});
+};
+
+
 const removeComment = (id) => {
     return api.delete(`/comments/${id}/`);
 };
@@ -96,5 +101,6 @@ export {
     createComment,
     createPost,
     editComment,
-    editPost
+    editPost,
+    setPostToFavorite
 }
