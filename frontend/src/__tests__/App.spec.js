@@ -1,15 +1,11 @@
-import React from 'react';
+import React from "react";
 import App from "../App";
-import {shallow} from "enzyme";
+import { shallow } from "enzyme";
 
-describe('App Component', () => {
+describe("App Component", () => {
+  it("renders without crashing", () => {
+    const app = shallow(<App />);
 
-    it('renders without crashing', () => {
-       const app = shallow(<App/>);
-
-       expect(app).toMatchSnapshot()
-
-    });
-
-
+    expect(app).toMatchSnapshot();
+  });
 });

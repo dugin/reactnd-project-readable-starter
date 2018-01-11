@@ -1,137 +1,151 @@
-import React, {PureComponent} from 'react';
-import {Button, Grid} from "material-ui";
+import React, { PureComponent } from "react";
+import { Button, Grid } from "material-ui";
 import CategoriesChips from "../category/CategoriesChips";
-import {fetchCategories} from "../category/category.action";
-import {connect} from "react-redux";
+import { fetchCategories } from "../category/category.action";
+import { connect } from "react-redux";
 import Card from "../components/card/index";
-import {createPost, editPost, fetchPosts, removePost, setPostToFavorite, voteOnPost} from "../post/post.action";
-import {sort} from "../utils/time.helper";
-import {withRouter} from "react-router-dom";
-import AddIcon from 'material-ui-icons/Add';
-import styled from 'styled-components';
+import {
+  createPost,
+  editPost,
+  fetchPosts,
+  removePost,
+  setPostToFavorite,
+  voteOnPost
+} from "../post/post.action";
+import { sort } from "../utils/time.helper";
+import { withRouter } from "react-router-dom";
+import AddIcon from "material-ui-icons/Add";
+import styled from "styled-components";
 import CreateEditModal from "./CreateEdit.modal";
+import { sortable } from "../utils/constants";
+import { fetchComments } from "../comment/comment.action";
+import { countBy } from "lodash";
 
 const StyledAddButton = styled(Button)`
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 `;
 
 const StyledNotFound = styled.h1`
-    margin-top: 20px;
-    width: 100%;
-    text-align: center;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
 `;
 
-
-
 class PostsPage extends PureComponent {
+  state = {
+    openCreateDialog: false
+  };
 
-    state = {
-        openCreateDialog: false
-    };
+  componentDidMount() {
+    const { posts, categories, dispatch } = this.props;
 
-    componentWillMount() {
-        const {posts, categories} = this.props;
+    categories.length === 0 && dispatch(fetchCategories());
 
-        categories.length === 0 && this.props.dispatch(fetchCategories());
+    posts.length <= 1 &&
+      this.fetchPosts().then(resp => {
+        resp.value.data.map(p => dispatch(fetchComments(p.id)));
+      });
+  }
 
-        posts.length <= 1 && this.fetchPosts();
-    }
+  componentWillReceiveProps(nextProps) {
+    const { location, match } = nextProps;
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.location !== this.props.location)
-            this.fetchPosts(nextProps.match.params.categoryID);
+    location !== this.props.location &&
+      this.fetchPosts(match.params.categoryID);
+  }
 
-    }
+  getCategory(id) {
+    return id && id !== "all" ? id : "";
+  }
 
-    getCategory(id) {
-        return id && id !== 'all' ? id : '';
-    }
+  onCategory = category => {
+    this.props.history.push(`/${category}`);
+  };
 
-    onCategory = category => {
-        this.props.history.replace(`/${category}`);
-    };
+  fetchPosts(id) {
+    return this.props.dispatch(fetchPosts(this.getCategory(id)));
+  }
 
+  onRemove = id => {
+    this.props.dispatch(removePost(id));
+  };
 
-    fetchPosts(id) {
-        this.props.dispatch(fetchPosts(this.getCategory(id)));
-    }
+  onEdit = post => {
+    this.props.dispatch(editPost(post.id, post));
+  };
 
-    onRemove = (id) => {
-        this.props.dispatch(removePost(id))
-    };
+  onCreate = post => {
+    this.props.dispatch(createPost(post));
+    this.setState({ openCreateDialog: false });
+  };
 
-    onEdit = (post) => {
-        this.props.dispatch(editPost(post.id, post))
-    };
+  onVote = (id, voteType) => {
+    this.props.dispatch(voteOnPost(id, voteType));
+  };
 
-    onCreate = (post) => {
-        this.props.dispatch(createPost(post));
-        this.setState({openCreateDialog: false})
-    };
+  setFavoritePost = (id, favorite) => {
+    this.props.dispatch(setPostToFavorite(id, favorite));
+  };
 
+  render() {
+    const { categories, posts, amount } = this.props;
 
-    onVote = (id, voteType) => {
-        this.props.dispatch(voteOnPost(id, voteType))
-    };
+    return (
+      <Grid container>
+        <Grid item xs={12}>
+          <CategoriesChips onSelect={this.onCategory} categories={categories} />
+        </Grid>
 
-    setFavoritePost = (id, favorite) => {
-        this.props.dispatch(setPostToFavorite(id, favorite));
-    };
+        <Grid item xs={12}>
+          {posts.length > 0 ? (
+            posts.map(p => (
+              <Card
+                key={p.id}
+                info={p}
+                onRemove={this.onRemove}
+                onEdit={this.onEdit}
+                onAddOrSubtract={this.onVote}
+                categories={categories}
+                onFavorite={this.setFavoritePost}
+                amount={amount[p.id]}
+              />
+            ))
+          ) : (
+            <StyledNotFound>No posts found</StyledNotFound>
+          )}
+        </Grid>
+        <StyledAddButton
+          fab
+          color="primary"
+          onClick={() => this.setState({ openCreateDialog: true })}
+        >
+          <AddIcon />
+        </StyledAddButton>
 
-    render() {
-        const {categories, posts} = this.props;
-
-        return (
-            <Grid container>
-
-                <Grid item xs={12}>
-                    <CategoriesChips
-                        onSelect={this.onCategory}
-                        categories={categories}/>
-                </Grid>
-
-                <Grid item xs={12}>
-                    {posts.length > 0 ? posts.map(p => (
-                        <Card
-                            key={p.id}
-                            info={p}
-                            onRemove={this.onRemove}
-                            onEdit={this.onEdit}
-                            onAddOrSubtract={this.onVote}
-                            categories={categories}
-                            onFavorite={this.setFavoritePost}
-
-                        />
-                    )) : <StyledNotFound>No posts found</StyledNotFound>}
-                </Grid>
-                <StyledAddButton fab color='primary' onClick={() => this.setState({openCreateDialog: true})}>
-                    <AddIcon/>
-                </StyledAddButton>
-
-                <CreateEditModal
-                    onClose={() => this.setState({openCreateDialog: false})}
-                    onSave={this.onCreate}
-                    open={this.state.openCreateDialog}
-                    categories={categories.filter(c => c !== 'all')}
-                />
-            </Grid>
-        );
-    }
+        <CreateEditModal
+          onClose={() => this.setState({ openCreateDialog: false })}
+          onSave={this.onCreate}
+          open={this.state.openCreateDialog}
+          categories={categories.filter(c => c !== "all")}
+        />
+      </Grid>
+    );
+  }
 }
 
-export const mapStateToProps = (state) => {
-    const {categories, isDoneCategory, errorCategory} = state.categories;
-    let {posts, isDonePost, errorPost, sortBy} = state.posts;
+export const mapStateToProps = state => {
+  const { categories, isDoneCategory, errorCategory } = state.categories;
+  let { posts, isDonePost, errorPost, sortBy } = state.posts;
+  const { comments, isDoneComment, errorComment } = state.comments;
 
-    posts = sortBy ? sort(sortBy, posts) : posts;
-
-    return {
-        categories,
-        isLoading: !isDoneCategory || !isDonePost,
-        error: !!errorCategory || !!errorPost,
-        posts
-    }
+  return {
+    categories,
+    isLoading: !isDonePost || !isDoneComment || !isDoneCategory,
+    error: !!errorPost || !!errorComment || !!errorCategory,
+    posts: sortBy ? sort(sortBy, posts) : sort(sortable[0], posts),
+    amount: countBy(comments, c => c.parentId)
+  };
 };
 export default withRouter(connect(mapStateToProps)(PostsPage));

@@ -1,33 +1,33 @@
-import {createStore, applyMiddleware, compose} from 'redux';
-import {createLogger} from 'redux-logger';
-import reduxThunk from 'redux-thunk';
-import promise from 'redux-promise-middleware';
+import { createStore, applyMiddleware, compose } from "redux";
+import { createLogger } from "redux-logger";
+import reduxThunk from "redux-thunk";
+import promise from "redux-promise-middleware";
 import rootReducer from "../root.reducer";
 
-
 const configureStore = () => {
+  let middlewares = [reduxThunk, promise()];
 
-    let middlewares = [reduxThunk, promise()];
+  let store = createStore(rootReducer, applyMiddleware(...middlewares));
 
-    let store = createStore(rootReducer, applyMiddleware(...middlewares));
+  if (process.env.NODE_ENV !== "production") {
+    middlewares.push(createLogger());
 
-    if (process.env.NODE_ENV !== "production") {
-        middlewares.push(createLogger());
+    const composeEnhancers =
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-        const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    store = createStore(
+      rootReducer,
+      composeEnhancers(applyMiddleware(...middlewares))
+    );
 
-        store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)));
-
-        if (module.hot) {
-            module.hot.accept('../root.reducer', () => {
-                store.replaceReducer(rootReducer)
-            })
-        }
-
-
+    if (module.hot) {
+      module.hot.accept("../root.reducer", () => {
+        store.replaceReducer(rootReducer);
+      });
     }
+  }
 
-    return store;
+  return store;
 };
 
 export default configureStore;
